@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
-
-// Uncomment this line to use console.log
 import "hardhat/console.sol";
 
 contract Token {
@@ -79,9 +77,10 @@ contract Token {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        require(_value <= balanceOf[_from]);
+        
+        require(_value <= balanceOf[_from], 'insufficient balance');
         // Check approval
-        require(_value <= allowance[_from][msg.sender]);
+        require(_value <= allowance[_from][msg.sender], 'insufficient allowance');
 
         // Reset Allowance
         allowance[_from][msg.sender] = allowance[_from][msg.sender] - _value;
